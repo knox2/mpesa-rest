@@ -1,0 +1,15 @@
+{
+    "name": "knox/mpesa-rest",
+    "description": "Laravel Package implementation of the MPESA REST API",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Timothy Radier",
+            "email": "timothyradier@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "^6.0"
+    }
+}
