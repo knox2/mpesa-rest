@@ -191,7 +191,7 @@ class MPESA
 
     }
 
-    public function doReversal($transaction, $amount, $receiver, $receiver_identifier, $remarks = 'No Remarks'){
+    public function doReversal($transaction, $amount, $receiver, $receiver_identifier, $remarks = 'No Remarks', $occassion = 'No Occassion'){
 
         if(!in_array($receiver_identifier, [1, 2, 4])){
             throw new InvalidArgumentException("Not a Valid Receiver Identifier, Valid Commands are ".join(", ", ['1 for MSISDN', '2 for Till Number', '4 for ShortCode']));
@@ -214,22 +214,20 @@ class MPESA
             'QueueTimeOutURL' => config('mpesa.reversal_timeout_url'),
             'ResultURL' => config('mpesa.reversal_result_url'),
             'Remarks' => $remarks,
-            'Occasion' => ''
+            'Occasion' => $occassion
         ];
 
         return $this->makeRequest($url, $json);
 
     }
 
-    public function stkPush($phone, $amount, $account = '', $description = ''){
+    public function stkPush($phone, $amount, $account = '', $description = 'No Description'){
 
         $root = config('mpesa.env') == 'live' ? config('mpesa.live_root_url') : config('mpesa.sandbox_root_url');
 
         $url = $root.'/stkpush/'.config('mpesa.version').'/processrequest';
 
         $timestamp = date('YmdHis');
-
-        //$password = base64_encode(hash('sha256',config('mpesa.short_code').config('mpesa.passkey').$timestamp));
 
         $password = base64_encode(config('mpesa.short_code').config('mpesa.passkey').$timestamp);
 
@@ -247,6 +245,7 @@ class MPESA
             'TransactionDesc' => $description
         ];
 
+
         return $this->makeRequest($url, $json);
     }
 
@@ -258,7 +257,7 @@ class MPESA
 
         $timestamp = date('YmdHis');
 
-        $password = base64_encode(hash('sha256',config('mpesa.short_code').config('mpesa.passkey').$timestamp));
+        $password = base64_encode(config('mpesa.short_code').config('mpesa.passkey').$timestamp);
 
         $json = [
             'BusinessShortCode' => config('mpesa.short_code'),
@@ -473,8 +472,6 @@ class MPESA
     }
 
     protected function encryptCredentials($source){
-
-        return 'OtgisVqxz2NAGTf0QRFjFCgW5RoxcAOO0mY9YdhFSRcCbJ+3WU0oGsK6yhIQwW7gDY4AKvth3MZCKlwG4HtlaJXdFm+oCOyHY32irUQfY5n2gMYGjNspOJ3df507K9Fd//qCQGeS9vt6JzPeQYZN/JWDM1DnhJfcAmHXrUBZbSFSnK9oslHPkFQdtkjpk9pkP8rVwRHYLuvF5rwjsVadosg//2FhAg+3CO/Hce9LpbJka8HLCv7jO3uAIxyfSozOTY7JWXbS/OQ/TvOAkSf3wzEEnMKerkxBsGDuhJs208oRwSm6Z+Z3oB6gxu4esTKGc9gtm0VSVPAZ6Kp0BBdlTQ==';
 
         $fp = fopen(config('mpesa.cert_path'),"r");
 
