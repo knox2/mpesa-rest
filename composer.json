@@ -16,7 +16,7 @@
         "psr-4": {
             "Knox\\MPESA\\": "src"
         }
-    }
+    },
     "config": {
         "sort-packages": true
     },
