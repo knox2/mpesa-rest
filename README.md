@@ -1,3 +1,3 @@
-#MPESA REST API for Laravel
+# MPESA REST API for Laravel
 
 Docs coming soon
