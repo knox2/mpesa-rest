@@ -14,11 +14,11 @@ return [
 
     'short_code' => env('MPESA_SHORT_CODE', ''),
 
-    'passkey' => env('PASSKEY', ''),
+    'passkey' => env('MPESA_PASSKEY', ''),
 
     'partner_id' => env('MPESA_PARTNER_ID'),
 
-    'partner_password' => env('MPESA_PARTNER_PASSWORDx'),
+    'partner_password' => env('MPESA_PARTNER_PASSWORD'),
 
     'b2c_timeout_url' => env('MPESA_B2C_TIMEOUT_URL', ''),
 
@@ -28,7 +28,7 @@ return [
 
     'b2b_result_url' => env('MPESA_B2B_RESULT_URL',''),
 
-    'c2b_validation_url' => env('MPESA_C2B_TIMEOUT_URL', ''),
+    'c2b_validation_url' => env('MPESA_C2B_VALIDATION_URL', ''),
 
     'c2b_confirmation_url' => env('MPESA_C2B_CONFIRMATION_URL',''),
 

@@ -174,7 +174,7 @@ class MPESA
 
         $url = $root.'/accountbalance/'.config('mpesa.version').'/query';
 
-        $security_credentials = $this->encryptCredentials(config('mpesa.short_code').':'.config('mpesa.initiator_password'));
+        $security_credentials = $this->encryptCredentials(config('mpesa.initiator_password'));
 
         $json = [
             'Initiator' => config('mpesa.initiator_name'),
