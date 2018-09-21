@@ -292,8 +292,8 @@ class MPESA
             'TransactionID' => $transaction,
             'PartyA' => $party,
             'IdentifierType' => $identifier_type,
-            'ResultURL' => config('mpesa.transaction_status_timeout_url'),
-            'QueueTimeOutURL' => config('mpesa.transaction_status_result_url'),
+            'ResultURL' => config('mpesa.transaction_status_result_url'),
+            'QueueTimeOutURL' => config('mpesa.transaction_status_timeout_url'),
             'Remarks' => $remarks,
             'Occasion' => $occassion
         ];
