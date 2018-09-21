@@ -269,7 +269,7 @@ class MPESA
         return $this->makeRequest($url, $json);
     }
 
-    public function getTransactionStatus($transaction, $party = '', $identifier_type, $remarks = 'No Remarks', $occassion = ''){
+    public function getTransactionStatus($transaction, $party = '', $identifier_type = '4', $remarks = 'No Remarks', $occassion = ''){
 
         if(!in_array($identifier_type, [1, 2, 4])){
             throw new InvalidArgumentException("Not a Valid Receiver Identifier, Valid Commands are ".join(", ", ['1 for MSISDN', '2 for Till Number', '4 for ShortCode']));
