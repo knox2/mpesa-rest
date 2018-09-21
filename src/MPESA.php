@@ -56,7 +56,7 @@ class MPESA
 
         $url = $root.config('mpesa.b2c_url').config('mpesa.version').'/paymentrequest';
 
-        $security_credentials = $this->encryptCredentials(config('mpesa.short_code').':'.config('mpesa.initiator_password'));
+        $security_credentials = $this->encryptCredentials(config('mpesa.initiator_password'));
 
         $json = [
             'InitiatorName' => config('mpesa.initiator_name'),
@@ -101,7 +101,7 @@ class MPESA
 
         $url = $root.config('mpesa.b2b_url').config('mpesa.version').'/paymentrequest';
 
-        $security_credentials = $this->encryptCredentials(config('mpesa.short_code').':'.config('mpesa.initiator_password'));
+        $security_credentials = $this->encryptCredentials(config('mpesa.initiator_password'));
 
         $json = [
             'Initiator' => config('mpesa.initiator_name'),
@@ -201,7 +201,7 @@ class MPESA
 
         $url = $root.'/reversal/'.config('mpesa.version').'/request';
 
-        $security_credentials = $this->encryptCredentials(config('mpesa.short_code').':'.config('mpesa.initiator_password'));
+        $security_credentials = $this->encryptCredentials(config('mpesa.initiator_password'));
 
         $json = [
             'Initiator' => config('mpesa.initiator_name'),
@@ -279,7 +279,7 @@ class MPESA
 
         $url = $root.'/transactionstatus/'.config('mpesa.version').'/query';
 
-        $security_credentials = $this->encryptCredentials(config('mpesa.short_code').':'.config('mpesa.initiator_password'));
+        $security_credentials = $this->encryptCredentials(config('mpesa.initiator_password'));
 
         if(!$party){
             $party = config('mpesa.short_code');
