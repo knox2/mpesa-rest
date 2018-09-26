@@ -191,9 +191,9 @@ class MPESA
 
     }
 
-    public function doReversal($transaction, $amount, $receiver, $receiver_identifier, $remarks = 'No Remarks', $occassion = 'No Occassion'){
+    public function doReversal($transaction, $amount, $receiver, $receiver_identifier = 11, $remarks = 'No Remarks', $occassion = 'No Occassion'){
 
-        if(!in_array($receiver_identifier, [1, 2, 4])){
+        if(!in_array($receiver_identifier, [1, 2, 4, 11])){
             throw new InvalidArgumentException("Not a Valid Receiver Identifier, Valid Commands are ".join(", ", ['1 for MSISDN', '2 for Till Number', '4 for ShortCode']));
         }
 
