@@ -10,7 +10,6 @@ use InvalidArgumentException;
 use GuzzleHttp\Client;
 use Carbon\Carbon;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Exception;
 
 class MPESA
 {
@@ -191,10 +190,14 @@ class MPESA
 
     }
 
-    public function doReversal($transaction, $amount, $receiver, $receiver_identifier = 11, $remarks = 'No Remarks', $occassion = 'No Occassion'){
+    public function doReversal($transaction, $amount, $receiver = null, $receiver_identifier = 11, $remarks = 'No Remarks', $occassion = 'No Occassion'){
 
         if(!in_array($receiver_identifier, [1, 2, 4, 11])){
             throw new InvalidArgumentException("Not a Valid Receiver Identifier, Valid Commands are ".join(", ", ['1 for MSISDN', '2 for Till Number', '4 for ShortCode']));
+        }
+
+        if(!$receiver){
+            $receiver = config('mpesa.short_code');
         }
 
         $root = config('mpesa.env') == 'live' ? config('mpesa.live_root_url') : config('mpesa.sandbox_root_url');
