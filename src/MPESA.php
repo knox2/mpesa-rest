@@ -3,6 +3,7 @@
 namespace Knox\MPESA;
 
 
+use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Exception\TransferException;
@@ -460,8 +461,12 @@ class MPESA
             return json_decode($e->getResponse()->getBody());
         }
         catch(TransferException $e){
-            //throw new Exception($e->getResponse()->getBody());
-            return json_decode($e->getResponse()->getBody());
+            //throw new Exception($e->getMessage());
+            return json_decode($e->getMessage());
+        }
+        catch(Exception $e){
+            //throw new Exception($e->getMessage());
+            return json_decode($e->getMessage());
         }
 
         $this->checkErrorCode($response->getStatusCode());
