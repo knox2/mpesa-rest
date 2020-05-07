@@ -7,6 +7,7 @@ use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Exception\TransferException;
+use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 use GuzzleHttp\Client;
 use Carbon\Carbon;
@@ -454,18 +455,22 @@ class MPESA
         }
         catch(ClientException $e){
             //throw new HttpException($e->getCode(), $e->getResponse()->getBody());
+            Log::info($e->getResponse()->getBody());
             return json_decode($e->getResponse()->getBody());
         }
         catch(ServerException $e){
             //throw new HttpException($e->getCode(), $e->getResponse()->getBody());
-            return json_decode($e->getResponse()->getBody());
+            Log::info($e->getMessage());
+            return json_decode($e->getMessage());
         }
         catch(TransferException $e){
             //throw new Exception($e->getMessage());
+            Log::info($e->getMessage());
             return json_decode($e->getMessage());
         }
         catch(Exception $e){
             //throw new Exception($e->getMessage());
+            Log::info($e->getMessage());
             return json_decode($e->getMessage());
         }
 
