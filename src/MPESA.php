@@ -454,24 +454,20 @@ class MPESA
             );
         }
         catch(ClientException $e){
-            //throw new HttpException($e->getCode(), $e->getResponse()->getBody());
-            Log::info($e->getResponse()->getBody());
-            return json_decode($e->getResponse()->getBody());
+            Log::info($e->getResponse()->getReasonPhrase());
+            throw new HttpException($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
         catch(ServerException $e){
-            //throw new HttpException($e->getCode(), $e->getResponse()->getBody());
             Log::info($e->getMessage());
-            return json_decode($e->getMessage());
+            throw new HttpException($e->getCode(), $e->getResponse()->getBody());
         }
         catch(TransferException $e){
-            //throw new Exception($e->getMessage());
             Log::info($e->getMessage());
-            return json_decode($e->getMessage());
+            throw new Exception($e->getMessage());
         }
         catch(Exception $e){
-            //throw new Exception($e->getMessage());
             Log::info($e->getMessage());
-            return json_decode($e->getMessage());
+            throw new Exception($e->getMessage());
         }
 
         $this->checkErrorCode($response->getStatusCode());
