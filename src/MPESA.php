@@ -12,6 +12,8 @@ use InvalidArgumentException;
 use GuzzleHttp\Client;
 use Carbon\Carbon;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use function json_decode;
+use function print_r;
 
 class MPESA
 {
@@ -454,12 +456,14 @@ class MPESA
             );
         }
         catch(ClientException $e){
-            Log::info($e->getResponse()->getReasonPhrase());
-            throw new HttpException($e->getCode(), $e->getResponse()->getReasonPhrase());
+            $error = json_decode($e->getResponse()->getBody());
+            Log::info($error->requestId.' => '.$error->errorCode .' : '.$error->errorMessage);
+            throw new HttpException($error->errorCode, $error->errorCode .' : '.$error->errorMessage);
         }
         catch(ServerException $e){
-            Log::info($e->getMessage());
-            throw new HttpException($e->getCode(), $e->getResponse()->getBody());
+            $error = json_decode($e->getResponse()->getBody());
+            Log::info($error->requestId.' => '.$error->errorCode .' : '.$error->errorMessage);
+            throw new HttpException($error->errorCode, $error->requestId.' => '.$error->errorCode .' : '.$error->errorMessage);
         }
         catch(TransferException $e){
             Log::info($e->getMessage());
