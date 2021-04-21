@@ -6,7 +6,9 @@ return [
 
     'sandbox_auth' => 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials',
 
-    'cert_path' => __DIR__.'/../cert/saf.cer',
+    'cert_path_live' => __DIR__.'/../cert/saf_prod.cer',
+
+    'cert_path_test' => __DIR__.'/../cert/saf_test.cer',
 
     'version' => 'v1',
 

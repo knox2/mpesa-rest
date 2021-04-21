@@ -488,7 +488,9 @@ class MPESA
 
     protected function encryptCredentials($source){
 
-        $fp = fopen(config('mpesa.cert_path'),"r");
+        $cert_path = config('mpesa.env') == 'live' ? config('mpesa.cert_path_live') : config('mpesa.cert_path_test');
+
+        $fp = fopen($cert_path,"r");
 
         $cert_data = fread($fp,8192);
 
