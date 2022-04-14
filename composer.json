@@ -24,7 +24,10 @@
         "laravel": {
             "providers": [
                 "Knox\\MPESA\\MpesaServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "MPESA": "Knox\\MPESA\\Facades\\MPESA"
+            }
         }
     }
 }
