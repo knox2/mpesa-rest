@@ -459,21 +459,21 @@ class MPESA
             $error = json_decode($e->getResponse()->getBody());
             $message = 'MPESA ERROR => RequestID: '.$error->requestId.', ErrorCode: '.$error->errorCode .', ErrorMessage: '.$error->errorMessage;
             Log::info($message);
-            $this->checkErrorCode((int) $error->errorCode);
+            $this->checkErrorCode((int) $error->errorCode, $error->errorMessage);
         }
         catch(ServerException $e){
             $error = json_decode($e->getResponse()->getBody());
             $message = 'MPESA ERROR => RequestID: '.$error->requestId.', ErrorCode: '.$error->errorCode .', ErrorMessage: '.$error->errorMessage;
             Log::info($message);
-            $this->checkErrorCode((int) $error->errorCode);
+            $this->checkErrorCode((int) $error->errorCode, $error->errorMessage);
         }
         catch(TransferException $e){
             Log::info($e->getMessage());
-            $this->checkErrorCode(500);
+            $this->checkErrorCode(500, $e->getMessage());
         }
         catch(Exception $e){
             Log::info($e->getMessage());
-            $this->checkErrorCode(500);
+            $this->checkErrorCode(500, $e->getMessage());
         }
 
         //$headers = $response->getHeaders();
@@ -503,7 +503,7 @@ class MPESA
         return base64_encode($crypt_text);
     }
 
-    protected function checkErrorCode($code){
+    protected function checkErrorCode($code, $message){
 
         if($code == 200){
             return;
@@ -525,7 +525,7 @@ class MPESA
             return;
         }
         else{
-            throw new HttpException($code, $errors[''.$code]);
+            throw new HttpException($code, $errors[''.$code.': '.$message]);
         }
     }
 
