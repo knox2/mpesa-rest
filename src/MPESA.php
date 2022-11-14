@@ -459,24 +459,22 @@ class MPESA
             $error = json_decode($e->getResponse()->getBody());
             $message = 'MPESA ERROR => RequestID: '.$error->requestId.', ErrorCode: '.$error->errorCode .', ErrorMessage: '.$error->errorMessage;
             Log::info($message);
-            throw new HttpException($error->errorCode, $message);
+            $this->checkErrorCode((int) $error->errorCode);
         }
         catch(ServerException $e){
             $error = json_decode($e->getResponse()->getBody());
             $message = 'MPESA ERROR => RequestID: '.$error->requestId.', ErrorCode: '.$error->errorCode .', ErrorMessage: '.$error->errorMessage;
             Log::info($message);
-            throw new HttpException($error->errorCode, $message);
+            $this->checkErrorCode((int) $error->errorCode);
         }
         catch(TransferException $e){
             Log::info($e->getMessage());
-            throw new Exception($e->getMessage());
+            $this->checkErrorCode(500);
         }
         catch(Exception $e){
             Log::info($e->getMessage());
-            throw new Exception($e->getMessage());
+            $this->checkErrorCode(500);
         }
-
-        $this->checkErrorCode($response->getStatusCode());
 
         //$headers = $response->getHeaders();
 
@@ -524,10 +522,10 @@ class MPESA
         ];
 
         if(!array_key_exists($code, $errors)){
-
+            return;
         }
         else{
-            throw new HttpException($code, $errors[$code]);
+            throw new HttpException($code, $errors[''.$code]);
         }
     }
 
