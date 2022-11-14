@@ -525,7 +525,7 @@ class MPESA
             return;
         }
         else{
-            throw new HttpException($code, $errors[''.$code.': '.$message]);
+            throw new HttpException($code, $errors[''.$code].': '.$message);
         }
     }
 
