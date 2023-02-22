@@ -31,6 +31,7 @@ Publish the configuration file and migrations by running the provided console co
  
 ### Environmental Variables
 MPESA\_ENV=`'live' for production and 'test' for sandbox`<br/>
+MPESA\_VERSION=`'v1' or 'v2'`<br/>
 MPESA\_CONSUMER\_KEY=`consumer key`<br/>
 MPESA\_CONSUMER\_SECRET=`consumer secret`<br/>
 MPESA\_IDENTIFIER=shortcode `shortcode or till`<br/>
