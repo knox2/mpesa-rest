@@ -6,6 +6,8 @@ return [
 
     'sandbox_auth' => 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials',
 
+    'version' => env('MPESA_VERSION', 'v1'),
+
     'cert_path_live' => __DIR__.'/../cert/saf_prod.cer',
 
     'cert_path_test' => __DIR__.'/../cert/saf_test.cer',
