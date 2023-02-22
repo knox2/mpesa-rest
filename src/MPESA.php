@@ -457,14 +457,14 @@ class MPESA
         }
         catch(ClientException $e){
             $error = json_decode($e->getResponse()->getBody());
-            Log::info($error);
+            Log::info(print_r($error));
             $message = 'MPESA ERROR => RequestID: '.$error->requestId.', ErrorCode: '.$error->errorCode .', ErrorMessage: '.$error->errorMessage;
             Log::info($message);
             $this->checkErrorCode((int) $error->errorCode, $error->errorMessage);
         }
         catch(ServerException $e){
             $error = json_decode($e->getResponse()->getBody());
-            Log::info($error);
+            Log::info(print_r($error));
             $message = 'MPESA ERROR => RequestID: '.$error->requestId.', ErrorCode: '.$error->errorCode .', ErrorMessage: '.$error->errorMessage;
             Log::info($message);
             $this->checkErrorCode((int) $error->errorCode, $error->errorMessage);
