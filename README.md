@@ -1,5 +1,5 @@
-# MPESA REST API for Laravel 5
-Laravel 5 Package for the MPESA REST API
+# MPESA REST API for Laravel
+Laravel Package for the MPESA REST API
 
 ## Installation
 
