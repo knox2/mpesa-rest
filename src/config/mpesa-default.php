@@ -10,8 +10,6 @@ return [
 
     'cert_path_test' => __DIR__.'/../cert/saf_test.cer',
 
-    'version' => 'v1',
-
     'sandbox_root_url' => 'https://sandbox.safaricom.co.ke/mpesa',
 
     'live_root_url' => 'https://api.safaricom.co.ke/mpesa',
