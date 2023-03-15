@@ -12,6 +12,7 @@ use InvalidArgumentException;
 use GuzzleHttp\Client;
 use Carbon\Carbon;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use function config;
 use function json_decode;
 use function print_r;
 
@@ -443,6 +444,13 @@ class MPESA
 
         if(sizeof($json) > 0){
             $data['json'] = $json;
+        }
+
+        if(config('mpesa.proxy')){
+            $data['proxy'] =  [
+                'http'  => config('mpesa.proxy'),
+                'https' => config('mpesa.proxy'),
+            ];
         }
 
         $response = null;

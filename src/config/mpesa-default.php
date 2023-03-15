@@ -20,5 +20,7 @@ return [
 
     'b2c_url' => '/b2c/',
 
-    'c2b_url' => '/c2b/'
+    'c2b_url' => '/c2b/',
+
+    'proxy' => env('MPESA_PROXY')
 ];

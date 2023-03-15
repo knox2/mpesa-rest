@@ -4,8 +4,6 @@ return [
 
     'env' => env('MPESA_ENV', 'test'),
 
-    'version' => env('MPESA_VERSION', 'v1'),
-
     'consumer_key' => env('MPESA_CONSUMER_KEY', ''),
 
     'consumer_secret' => env('MPESA_CONSUMER_SECRET', ''),
