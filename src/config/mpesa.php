@@ -14,6 +14,8 @@ return [
 
     'short_code' => env('MPESA_SHORT_CODE', ''),
 
+    'till_number' => env('MPESA_TILL_NUMBER', ''),
+
     'passkey' => env('MPESA_PASSKEY', ''),
 
     'partner_id' => env('MPESA_PARTNER_ID'),

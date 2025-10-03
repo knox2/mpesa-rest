@@ -240,11 +240,13 @@ class MPESA
         $password = base64_encode(config('mpesa.short_code').config('mpesa.passkey').$timestamp);
 
         $transaction_type = 'CustomerPayBillOnline';
+        $partyB = config('mpesa.short_code');
 
         $is_paybill = config('mpesa.identifier') === 'shortcode';
 
         if(!$is_paybill){
             $transaction_type = 'CustomerBuyGoodsOnline';
+            $partyB = config('mpesa.till_number');
         }
 
         $json = [
@@ -254,7 +256,7 @@ class MPESA
             'TransactionType' => $transaction_type,
             'Amount' => $amount,
             'PartyA' => $phone,
-            'PartyB' => config('mpesa.short_code'),
+            'PartyB' => $partyB,
             'PhoneNumber' => $phone,
             'CallBackURL' => config('mpesa.stk_callback_url'),
             'AccountReference' => $account,
