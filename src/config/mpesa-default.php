@@ -22,5 +22,7 @@ return [
 
     'c2b_url' => '/c2b/',
 
-    'proxy' => env('MPESA_PROXY')
+    'proxy' => env('MPESA_PROXY'),
+
+    'identifier' => env('MPESA_IDENTIFIER','shortcode'),
 ];

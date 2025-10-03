@@ -239,11 +239,19 @@ class MPESA
 
         $password = base64_encode(config('mpesa.short_code').config('mpesa.passkey').$timestamp);
 
+        $transaction_type = 'CustomerPayBillOnline';
+
+        $is_paybill = config('mpesa.identifier') === 'shortcode';
+
+        if(!$is_paybill){
+            $transaction_type = 'CustomerBuyGoodsOnline';
+        }
+
         $json = [
             'BusinessShortCode' => config('mpesa.short_code'),
             'Password' => $password,
             'Timestamp' => $timestamp,
-            'TransactionType' => 'CustomerPayBillOnline',
+            'TransactionType' => $transaction_type,
             'Amount' => $amount,
             'PartyA' => $phone,
             'PartyB' => config('mpesa.short_code'),
@@ -465,14 +473,14 @@ class MPESA
         }
         catch(ClientException $e){
             $error = json_decode($e->getResponse()->getBody());
-            Log::info(print_r($error));
+            Log::info(print_r($error, true));
             $message = 'MPESA ERROR => RequestID: '.$error->requestId.', ErrorCode: '.$error->errorCode .', ErrorMessage: '.$error->errorMessage;
             Log::info($message);
             $this->checkErrorCode((int) $error->errorCode, $error->errorMessage);
         }
         catch(ServerException $e){
             $error = json_decode($e->getResponse()->getBody());
-            Log::info(print_r($error));
+            Log::info(print_r($error, true));
             $message = 'MPESA ERROR => RequestID: '.$error->requestId.', ErrorCode: '.$error->errorCode .', ErrorMessage: '.$error->errorMessage;
             Log::info($message);
             $this->checkErrorCode((int) $error->errorCode, $error->errorMessage);
