@@ -38,6 +38,8 @@ MPESA\_IDENTIFIER=shortcode `shortcode or till`<br/>
 MPESA\_SHORT\_CODE=`shortcode`<br/>
 MPESA\_PASSKEY=`passkey`<br/>
 
+MPESA\_TILL\_NUMBER=`'till_number' in case of a till number add it here. Make sure to republish the config`<br/>
+
 MPESA\_INITIATOR\_NAME=`initiator username`<br/>
 MPESA\_INITIATOR\_PASSWORD=`initiator password`<br/>
 
