@@ -81,7 +81,7 @@ class MPESA
 
     public function b2b($short_code, $amount, $command, $sender_identifier, $receiver_identifier, $remarks = 'No Remarks', $account = ''){
 
-        $allowed = ['BusinessPayBill', 'BusinessBuyGoods', 'DisburseFundsToBusiness', 'BusinessToBusinessTransfer', 'BusinessTransferFromMMFToUtility', 'BusinessTransferFromUtilityToMMF', 'MerchantToMerchantTransfer', 'MerchantTransferFromMerchantToWorking','MerchantServicesMMFAccountTransfer','AgencyFloatAdvance'];
+        $allowed = ['BusinessPayBill','BusinessPayToBulk', 'BusinessBuyGoods', 'DisburseFundsToBusiness', 'BusinessToBusinessTransfer', 'BusinessTransferFromMMFToUtility', 'BusinessTransferFromUtilityToMMF', 'MerchantToMerchantTransfer', 'MerchantTransferFromMerchantToWorking','MerchantServicesMMFAccountTransfer','AgencyFloatAdvance'];
 
         if(!in_array($command, $allowed)){
             throw new InvalidArgumentException("Not a Valid Command, Valid Commands are ".join(", ", $allowed));
@@ -100,6 +100,41 @@ class MPESA
                 throw new InvalidArgumentException('Account number is required for Paybill payments');
             }
         }
+
+        $root = config('mpesa.env') == 'live' ? config('mpesa.live_root_url') : config('mpesa.sandbox_root_url');
+
+        $url = $root.config('mpesa.b2b_url').config('mpesa.version').'/paymentrequest';
+
+        $security_credentials = $this->encryptCredentials(config('mpesa.initiator_password'));
+
+        $json = [
+            'Initiator' => config('mpesa.initiator_name'),
+            'SecurityCredential' => $security_credentials,
+            'CommandID' => $command,
+            'Amount' => $amount,
+            'PartyA' => config('mpesa.short_code'),
+            'PartyB' => $short_code,
+            'SenderIdentifierType' => $sender_identifier,
+            'RecieverIdentifierType' => $receiver_identifier,
+            'Remarks' => $remarks,
+            'AccountReference' => $account,
+            'QueueTimeOutURL' => config('mpesa.b2b_timeout_url'),
+            'ResultURL' => config('mpesa.b2b_result_url'),
+        ];
+
+        return $this->makeRequest($url, $json);
+
+    }
+
+    public function remitTax($amount, $account = '', $remarks = 'No Remarks'){
+
+        $sender_identifier = 4;
+
+        $receiver_identifier = 4;
+
+        $short_code = '572572';
+
+        $command = 'PayTaxToKRA';
 
         $root = config('mpesa.env') == 'live' ? config('mpesa.live_root_url') : config('mpesa.sandbox_root_url');
 
